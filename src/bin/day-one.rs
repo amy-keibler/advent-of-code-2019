@@ -15,7 +15,7 @@ fn fuel_for_module(mass: u32) -> u32 {
 fn fuel_for_module_including_fuel(mass: u32) -> u32 {
     let module_fuel = fuel_for_module(mass);
     if module_fuel > 0 {
-      return module_fuel + fuel_for_module_including_fuel(module_fuel)
+        return module_fuel + fuel_for_module_including_fuel(module_fuel);
     }
     0
 }
