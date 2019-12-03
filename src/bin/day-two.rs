@@ -7,16 +7,16 @@ fn main() {
 
     // reset program
     for i in 0..100 {
-      for j in 0..100 {
-        let mut program = program.clone();
-        program[1] = i;
-        program[2] = j;
+        for j in 0..100 {
+            let mut program = program.clone();
+            program[1] = i;
+            program[2] = j;
 
-        if Ok(19_690_720) == execute_program(&mut program) {
-          println!("Inputs of {} and {} produce the output", i, j);
-          return
+            if Ok(19_690_720) == execute_program(&mut program) {
+                println!("Inputs of {} and {} produce the output", i, j);
+                return;
+            }
         }
-      }
     }
     println!("Failed to find input");
 }
