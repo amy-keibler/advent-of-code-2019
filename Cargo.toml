@@ -4,6 +4,9 @@ version = "0.1.0"
 authors = ["Amy Keibler <amy@genomoncology.com>"]
 edition = "2018"
 
+[lib]
+name = "advent_of_code"
+
 [[bin]]
 name = "day-one"
 
@@ -16,5 +19,9 @@ name = "day-three"
 [[bin]]
 name = "day-four"
 
+[[bin]]
+name = "day-five"
+
 [dependencies]
 nom = "5.0.1"
+thiserror = "1.0.9"
