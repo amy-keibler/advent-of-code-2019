@@ -22,6 +22,11 @@ name = "day-four"
 [[bin]]
 name = "day-five"
 
+[[bin]]
+name = "day-six"
+
 [dependencies]
 nom = "5.0.1"
 thiserror = "1.0.9"
+anyhow = "1.0.25"
+terminator = "0.1.0"
