@@ -2,7 +2,7 @@ use anyhow::anyhow;
 
 use std::collections::VecDeque;
 
-use advent_of_code::intcode_computer::{ExecutionError, IntcodeComputer};
+use advent_of_code::intcode_computer::IntcodeComputer;
 use advent_of_code::permutations::PermutationsIterator;
 
 fn main() {
@@ -33,7 +33,7 @@ fn maximize_amplifier_output(program: Vec<i32>) -> Result<(i32, [PhaseSetting; 5
             None
         }
     })
-    .max_by_key(|(value, _)| value.clone())
+    .max_by_key(|(value, _)| *value)
     .ok_or_else(|| anyhow!("Did not get a maximum value"))
 }
 
@@ -47,7 +47,7 @@ enum PhaseSetting {
 }
 
 impl PhaseSetting {
-    fn value(&self) -> i32 {
+    fn value(self) -> i32 {
         match self {
             PhaseSetting::Zero => 0,
             PhaseSetting::One => 1,
@@ -64,7 +64,7 @@ fn evaluate_sequence_for_program(
 ) -> Result<i32, anyhow::Error> {
     let mut transferred_output = 0;
 
-    for phase_setting in phase_sequence.iter().map(PhaseSetting::value) {
+    for phase_setting in phase_sequence.iter().copied().map(PhaseSetting::value) {
         let mut computer = IntcodeComputer::new_with_input(
             program.clone(),
             VecDeque::from(vec![phase_setting, transferred_output]),

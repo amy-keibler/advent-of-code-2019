@@ -54,6 +54,8 @@ fn parse_planet<'a, E: ParseError<&'a str>>(input: &'a str) -> IResult<&'a str, 
     Ok((input, name))
 }
 
+// Used in phase 1 of the puzzle
+#[allow(dead_code)]
 fn orbit_checksum(orbits: Vec<Orbit>) -> u32 {
     let orbit_graph: HashMap<&str, &str> = orbits
         .into_iter()
@@ -80,11 +82,8 @@ fn orbit_checksum(orbits: Vec<Orbit>) -> u32 {
     checksum
 }
 
-fn build_orbit_chain<'a>(orbits: &Vec<Orbit<'a>>, start: &'a str) -> VecDeque<&'a str> {
-    let orbit_graph: HashMap<&str, &str> = orbits
-        .into_iter()
-        .map(|o| (o.orbiting, o.orbited))
-        .collect();
+fn build_orbit_chain<'a>(orbits: &[Orbit<'a>], start: &'a str) -> VecDeque<&'a str> {
+    let orbit_graph: HashMap<&str, &str> = orbits.iter().map(|o| (o.orbiting, o.orbited)).collect();
 
     let mut current_chain: VecDeque<&'a str> = VecDeque::new();
 
@@ -308,7 +307,7 @@ K)L"#;
         assert_eq!(
             VecDeque::from(vec!["C", "B", "A"]),
             build_orbit_chain(
-                &vec![
+                &[
                     Orbit {
                         orbiting: "Start",
                         orbited: "A"

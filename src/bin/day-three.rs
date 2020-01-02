@@ -84,10 +84,12 @@ fn parse_distance<'a, E: ParseError<&'a str>>(input: &'a str) -> IResult<&'a str
 
     Ok((
         input,
-        distance.parse::<u32>().expect(&format!(
-            "Should have been able to get a value from all digits {}",
-            distance
-        )),
+        distance.parse::<u32>().unwrap_or_else(|_| {
+            panic!(
+                "Should have been able to get a value from all digits {}",
+                distance
+            )
+        }),
     ))
 }
 
@@ -110,8 +112,8 @@ impl Position {
 }
 
 fn closest_intersection(
-    first_wire: &Vec<PathSegment>,
-    second_wire: &Vec<PathSegment>,
+    first_wire: &[PathSegment],
+    second_wire: &[PathSegment],
 ) -> Option<Position> {
     let first_positions = wire_to_positions(first_wire);
     let second_positions = wire_to_positions(second_wire);
@@ -131,8 +133,8 @@ fn closest_intersection(
 }
 
 fn lowest_delay_of_intersections(
-    first_wire: &Vec<PathSegment>,
-    second_wire: &Vec<PathSegment>,
+    first_wire: &[PathSegment],
+    second_wire: &[PathSegment],
 ) -> Option<u32> {
     let first_positions = wire_to_positions(first_wire);
     let second_positions = wire_to_positions(second_wire);
@@ -157,7 +159,7 @@ fn lowest_delay_of_intersections(
 }
 
 /// assumes an initial position of <0, 0>
-fn wire_to_positions(wire: &Vec<PathSegment>) -> HashMap<Position, u32> {
+fn wire_to_positions(wire: &[PathSegment]) -> HashMap<Position, u32> {
     let mut positions = HashMap::new();
     let mut current_position = Position(0, 0);
     let mut current_step = 0;

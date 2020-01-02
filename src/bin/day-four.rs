@@ -9,6 +9,8 @@ fn main() {
     println!("{} valid passwords", num_valid_passwords);
 }
 
+// Used in phase 1 of the puzzle
+#[allow(dead_code)]
 fn matches_criteria(num: u32) -> bool {
     let digits = to_digits(num);
 
@@ -55,6 +57,8 @@ fn are_monotonically_increasing(pair: (u8, u8)) -> bool {
     pair.0 <= pair.1
 }
 
+// Used in phase 1 of the puzzle
+#[allow(dead_code)]
 fn are_duplicated(pair: (u8, u8)) -> bool {
     pair.0 == pair.1
 }
